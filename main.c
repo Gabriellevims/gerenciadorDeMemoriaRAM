@@ -15,10 +15,10 @@ int main() {
         printf("4 - Exibir resumo da memoria\n");
         printf("0 - Encerrar\n");
         printf("Escolha uma opcao: ");
-         if (scanf("%i", &opcao) != 1) {
+        if (scanf("%i", &opcao) != 1){
             while (getchar() != '\n'); 
             opcao = 6; 
-        } 
+        }
         switch(opcao) {
             case 1:
                 meusBlocos = criaBlocaDeMemoria(meusBlocos);
@@ -37,7 +37,7 @@ int main() {
                 printf("Programa encerrado.");
                 break;
             default:
-                printf("Opcao invalida. Tente novamente.\n");
+                printf("\nOpcao invalida. Tente novamente.\n");
         }
     } while(opcao != 0);
 

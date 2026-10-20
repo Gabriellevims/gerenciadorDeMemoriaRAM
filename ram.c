@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include "ram.h"
 
-
 struct BlocoMemoria {
     int id;
     void *endereco;
@@ -15,7 +14,11 @@ int quantidade = 0;
 PBlocoMemoria criaBlocaDeMemoria(PBlocoMemoria Bloco){
     int tamanho;
     printf("\nInforme o tamanho do bloco em bytes: ");
-    scanf("%d", &tamanho);
+    if (scanf("%i", &tamanho) != 1 || tamanho <= 0) {
+        while (getchar() != '\n');
+        printf("valor invalido, tente com valores acima de 0\n");
+        return NULL;
+    }
     if(quantidade == 0){
         PBlocoMemoria B = (PBlocoMemoria)malloc(sizeof(TBlocoMemoria));
         if(B == NULL){
@@ -78,7 +81,11 @@ void liberaBloco(PBlocoMemoria Bloco){
     }else{
         int valor;
         printf("Informe o identificador do bloco: ");
-        scanf("%d", &valor);
+        if (scanf("%i", &valor) != 1 || valor <= 0) {
+            while (getchar() != '\n');
+            printf("valor invalido, tente com valores acima de 0\n");
+            return;
+        }
         if(valor > quantidade || valor <= 0){
             printf("Digite um valor valido, temos o valor até o id: %d\n", quantidade);
         }else{
@@ -98,12 +105,12 @@ void exibirBloco(PBlocoMemoria Bloco){
     if(Bloco == NULL){
         printf("Não existe blocos de memorias alocadas, realize o cadastro\n");
     }else{
-        printf("\nID  ENDEREÇO              TAMANHO  ESTADO\n");
+        printf("\nID  ENDEREÇO          TAMANHO  ESTADO\n");
         for(int i = 0; i < quantidade; i++){
             if(Bloco[i].ocupado == 0)
-                printf("%d  (liberado)             %d       LIVRE\n",Bloco[i].id, Bloco[i].tamanho);
+                printf("%d  (liberado)          %d       LIVRE\n",Bloco[i].id, Bloco[i].tamanho);
             else
-                printf("%d  %p          %d       OCUPADO\n",Bloco[i].id, Bloco[i].endereco, Bloco[i].tamanho);
+                printf("%d  %p      %d      OCUPADO\n",Bloco[i].id, Bloco[i].endereco, Bloco[i].tamanho);
         }
     }
 }
